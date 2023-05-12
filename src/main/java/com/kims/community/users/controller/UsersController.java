@@ -26,7 +26,6 @@ public class UsersController {
      */
     @PostMapping("/logup")
     public ResponseEntity<UsersDto> addUsers(@RequestBody @Valid UsersForm usersForm) {
-        UsersDto usersDto = usersService.addUsers(usersForm);
-        return ResponseEntity.ok(usersDto);
+        return ResponseEntity.ok(usersService.addUsers(usersForm));
     }
 }
