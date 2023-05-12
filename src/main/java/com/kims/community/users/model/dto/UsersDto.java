@@ -27,10 +27,10 @@ public class UsersDto {
 
 
     /**
-     * Users -> UserResponse
+     * Users -> UsersDto
      *
      * @param users Users
-     * @return UserResponse
+     * @return UsersDto
      */
     public static UsersDto of(Users users) {
         return UsersDto.builder()
