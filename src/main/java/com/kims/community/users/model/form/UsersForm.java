@@ -27,14 +27,14 @@ public class UsersForm {
      * 이름
      */
     @NotBlank(message = "이름을 입력해주세요.")
-    @Size(min = 3, max = 10, message = "이름은 3자이상 10자이하입니다.")
+    @Size(min = 2, max = 10, message = "이름은 2자이상 10자이하입니다.")
     private String name;
 
     /**
      * 닉네임
      */
     @NotBlank(message = "닉네임을 입력해주세요.")
-    @Size(min = 3, max = 20, message = "닉네임은 3자이상 20자이하입니다.")
+    @Size(min = 2, max = 20, message = "닉네임은 2자이상 20자이하입니다.")
     private String nickName;
 
     /**
