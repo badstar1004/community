@@ -84,7 +84,7 @@ class UsersServiceTest {
     @DisplayName("중복된 닉네임이 존재(DUPLICATE_NICKNAME)")
     void throwException__when__duplicate_nickname() {
 
-        // 이메일이 이미 존재하는 경우를 가정하여 Mock 데이터 설정
+        // 닉네임이 이미 존재하는 경우를 가정하여 Mock 데이터 설정
         when(usersRepository.existsByNickName(validUsersForm.getNickName())).thenReturn(true);
 
         // 예외가 발생해야 함
