@@ -16,17 +16,17 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
     Optional<Users> findByEmail(String email);
 
     /**
-     * 이메일 카운트
+     * 이메일 존재 여부
      * @param email email
      * @return int
      */
-    int countByEmail(String email);
+    int existsByEmail(String email);
 
     /**
-     * 닉네임 카운트
+     * 닉네임 존재 여부
      * @param nickName nickName
      * @return int
      */
-    int countByNickName(String nickName);
+    int existsByNickName(String nickName);
 
 }
