@@ -20,13 +20,13 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
      * @param email email
      * @return int
      */
-    int existsByEmail(String email);
+    boolean existsByEmail(String email);
 
     /**
      * 닉네임 존재 여부
      * @param nickName nickName
      * @return int
      */
-    int existsByNickName(String nickName);
+    boolean existsByNickName(String nickName);
 
 }
