@@ -28,12 +28,12 @@ public class UsersService {
     public UsersDto addUsers(UsersForm usersForm) {
 
         // 이메일 체크
-        if (usersRepository.countByEmail(usersForm.getEmail()) > 0) {
+        if (usersRepository.existsByEmail(usersForm.getEmail()) {
             throw new CustomException(ALREADY_REGISTER_USER);
         }
 
         // 닉네임 체크
-        if (usersRepository.countByNickName(usersForm.getNickName()) > 0) {
+        if (usersRepository.existsByNickName(usersForm.getNickName())) {
             throw new CustomException(DUPLICATE_NICKNAME);
         }
 
