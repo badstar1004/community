@@ -28,7 +28,7 @@ public class UsersService {
     public UsersDto addUsers(UsersForm usersForm) {
 
         // 이메일 체크
-        if (usersRepository.existsByEmail(usersForm.getEmail()) {
+        if (usersRepository.existsByEmail(usersForm.getEmail())) {
             throw new CustomException(ALREADY_REGISTER_USER);
         }
 
