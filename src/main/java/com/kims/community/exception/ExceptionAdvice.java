@@ -1,42 +1,29 @@
 package com.kims.community.exception;
 
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
+import java.util.stream.Collectors;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @RestControllerAdvice
-public class ExceptionAdvice extends ResponseEntityExceptionHandler {
+public class ExceptionAdvice {
 
     /**
      * Valid 어노테이션 유효성 예외 처리
-     * @param ex the exception
-     * @param headers the headers to be written to the response
-     * @param status the selected response status
-     * @param request the current request
-     * @return  ResponseEntity<Object>
+     * @param ex MethodArgumentNotValidException
+     * @return ResponseEntity<Object>
      */
-    @Override
+    @ExceptionHandler(MethodArgumentNotValidException.class)
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
-        MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status,
-        WebRequest request) {
+        MethodArgumentNotValidException ex) {
 
         BindingResult result = ex.getBindingResult();
-        StringBuilder errMessage = new StringBuilder();
+        String errMessage = result.getFieldErrors().stream()
+            .map(error -> "[" + error.getField() + "]: " + error.getDefaultMessage() + "\n")
+            .collect(Collectors.joining());
 
-        for (FieldError error : result.getFieldErrors()) {
-            errMessage.append("[")
-                .append(error.getField())
-                .append("]: ")
-                .append(error.getDefaultMessage())
-                .append("\n");
-        }
-
-        return new ResponseEntity<>(errMessage, HttpStatus.BAD_REQUEST);
+        return ResponseEntity.badRequest().body(errMessage);
     }
 }
