@@ -1,6 +1,6 @@
 package com.kims.community.users.controller;
 
-import com.kims.community.users.model.dto.UsersDto;
+import com.kims.community.users.model.dto.UsersResponse;
 import com.kims.community.users.model.form.UsersForm;
 import com.kims.community.users.service.UsersService;
 import javax.validation.Valid;
@@ -25,7 +25,7 @@ public class UsersController {
      * @return UsersDto
      */
     @PostMapping("/logup")
-    public ResponseEntity<UsersDto> addUsers(@RequestBody @Valid UsersForm usersForm) {
+    public ResponseEntity<UsersResponse> addUsers(@RequestBody @Valid UsersForm usersForm) {
         return ResponseEntity.ok(usersService.addUsers(usersForm));
     }
 }

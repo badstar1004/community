@@ -3,8 +3,8 @@ POST http://localhost:8080/users/logup
 Content-Type: application/json
 
 {
-  "email": "aaa@bbb.com",
+  "email": "afa@bbb.com",
   "name": "닉네임",
-  "nickName": "aaa",
+  "nickName": "aaazz",
   "password": "패스워드"
 }

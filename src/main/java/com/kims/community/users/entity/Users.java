@@ -1,6 +1,7 @@
 package com.kims.community.users.entity;
 
 import com.kims.community.baseEntity.BaseEntity;
+import com.kims.community.users.model.form.UsersForm;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -54,4 +55,18 @@ public class Users extends BaseEntity {
     @Column(length = 20, nullable = false)
     private String password;
 
+
+    /**
+     * UsersForm -> Users
+     * @param usersForm usersForm
+     * @return Users
+     */
+    public static Users of(UsersForm usersForm) {
+        return Users.builder()
+            .email(usersForm.getEmail())
+            .name(usersForm.getName())
+            .nickName(usersForm.getNickName())
+            .password(usersForm.getPassword())
+            .build();
+    }
 }
