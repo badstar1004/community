@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.kims.community.exception.custom.CustomException;
-import com.kims.community.exception.custom.ErrorCode;
+import com.kims.community.exception.business.BusinessException;
+import com.kims.community.exception.business.ErrorCode;
 import com.kims.community.users.entity.Users;
 import com.kims.community.users.model.form.UsersForm;
 import com.kims.community.users.repository.UsersRepository;
@@ -76,7 +76,7 @@ class UsersServiceTest {
         // 예외가 발생해야 함
         assertThatThrownBy(
             () -> usersService.addUsers(validUsersForm))
-            .isInstanceOf(CustomException.class)
+            .isInstanceOf(BusinessException.class)
             .hasFieldOrPropertyWithValue("errorCode", ErrorCode.ALREADY_REGISTER_USER);
     }
 
@@ -90,7 +90,7 @@ class UsersServiceTest {
         // 예외가 발생해야 함
         assertThatThrownBy(
             () -> usersService.addUsers(validUsersForm))
-            .isInstanceOf(CustomException.class)
+            .isInstanceOf(BusinessException.class)
             .hasFieldOrPropertyWithValue("errorCode", ErrorCode.DUPLICATE_NICKNAME);
     }
 
