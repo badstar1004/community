@@ -3,6 +3,7 @@ package com.kims.community.users.service;
 import static com.kims.community.exception.business.ErrorCode.ALREADY_REGISTER_USER;
 import static com.kims.community.exception.business.ErrorCode.DUPLICATE_NICKNAME;
 import static com.kims.community.exception.business.ErrorCode.NOT_FOUND_USER;
+import static com.kims.community.exception.business.ErrorCode.WRONG_PASSWORD;
 
 import com.kims.community.config.JwtAuthenticationProvider;
 import com.kims.community.exception.business.BusinessException;
@@ -11,8 +12,8 @@ import com.kims.community.users.model.dto.UsersResponse;
 import com.kims.community.users.model.form.UsersForm;
 import com.kims.community.users.model.form.UsersLoginForm;
 import com.kims.community.users.repository.UsersRepository;
-import java.time.Duration;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,7 +23,7 @@ public class UsersService {
 
     private final UsersRepository usersRepository;
     private final JwtAuthenticationProvider jwtAuthenticationProvider;
-
+    private final PasswordEncoder passwordEncoder;
 
     /**
      * 유저 저장
@@ -42,14 +43,16 @@ public class UsersService {
             throw new BusinessException(DUPLICATE_NICKNAME);
         }
 
-        Users users = Users.of(usersForm);
+        // 비밀번호 암호화
+        usersForm.setPassword(passwordEncoder.encode(usersForm.getPassword()));
+        Users user = Users.of(usersForm);
 
         // 저장
-        usersRepository.save(users);
+        usersRepository.save(user);
 
         return UsersResponse.builder()
             .message("회원가입이 완료되었습니다.")
-            .usersDto(UsersResponse.UsersDto.of(users))
+            .usersDto(UsersResponse.UsersDto.of(user))
             .build();
     }
 
@@ -59,9 +62,15 @@ public class UsersService {
      * @return String
      */
     public String loginUsers(UsersLoginForm usersLoginForm) {
-        Users users = usersRepository.findByEmail(usersLoginForm.getEmail())
+
+        Users user = usersRepository.findByEmail(usersLoginForm.getEmail())
             .orElseThrow(() -> new BusinessException(NOT_FOUND_USER));
 
-        return jwtAuthenticationProvider.generateToken(users, Duration.ofMinutes(30));
+        // 비밀번호 확인
+        if (!passwordEncoder.matches(usersLoginForm.getPassword(), user.getPassword())) {
+            throw new BusinessException(WRONG_PASSWORD);
+        }
+
+        return jwtAuthenticationProvider.generateToken(user);
     }
 }

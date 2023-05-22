@@ -6,7 +6,7 @@ Content-Type: application/json
   "email": "afa@bbb.com",
   "name": "닉네임",
   "nickName": "aaazz",
-  "password": "패스워드"
+  "password": "tbfhleldrj!1111"
 }
 
 ### 로그인
@@ -15,5 +15,5 @@ Content-Type: application/json
 
 {
   "email": "afa@bbb.com",
-  "password": "패스워드"
+  "password": "1"
 }

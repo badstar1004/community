@@ -34,7 +34,7 @@ public class Users extends BaseEntity {
     /**
      * 이메일
      */
-    @Column(length = 100, nullable = false)
+    @Column(length = 100, unique = true)
     private String email;
 
     /**
@@ -52,7 +52,7 @@ public class Users extends BaseEntity {
     /**
      * 비밀번호
      */
-    @Column(length = 20, nullable = false)
+    @Column(nullable = false)
     private String password;
 
 
