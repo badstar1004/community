@@ -1,10 +1,19 @@
 ### 회원가입 테스트
-POST http://localhost:8080/users/logup
+POST http://localhost:8080/users/signup
 Content-Type: application/json
 
 {
   "email": "afa@bbb.com",
   "name": "닉네임",
   "nickName": "aaazz",
+  "password": "패스워드"
+}
+
+### 로그인
+POST http://localhost:8080/users/signin
+Content-Type: application/json
+
+{
+  "email": "afa@bbb.com",
   "password": "패스워드"
 }

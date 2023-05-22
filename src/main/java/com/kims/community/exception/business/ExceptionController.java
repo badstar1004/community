@@ -1,4 +1,4 @@
-package com.kims.community.exception.custom;
+package com.kims.community.exception.business;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ExceptionController {
 
-    @ExceptionHandler(CustomException.class)
-    public ResponseEntity<ExceptionResponse> customRequestException(final CustomException ex) {
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<ExceptionResponse> customRequestException(final BusinessException ex) {
         return ResponseEntity.badRequest().body(new ExceptionResponse(ex.getErrorCode(),
             ex.getMessage()));
     }

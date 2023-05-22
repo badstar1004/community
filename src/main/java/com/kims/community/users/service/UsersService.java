@@ -1,13 +1,17 @@
 package com.kims.community.users.service;
 
-import static com.kims.community.exception.custom.ErrorCode.ALREADY_REGISTER_USER;
-import static com.kims.community.exception.custom.ErrorCode.DUPLICATE_NICKNAME;
+import static com.kims.community.exception.business.ErrorCode.ALREADY_REGISTER_USER;
+import static com.kims.community.exception.business.ErrorCode.DUPLICATE_NICKNAME;
+import static com.kims.community.exception.business.ErrorCode.NOT_FOUND_USER;
 
-import com.kims.community.exception.custom.CustomException;
+import com.kims.community.config.JwtAuthenticationProvider;
+import com.kims.community.exception.business.BusinessException;
 import com.kims.community.users.entity.Users;
 import com.kims.community.users.model.dto.UsersResponse;
 import com.kims.community.users.model.form.UsersForm;
+import com.kims.community.users.model.form.UsersLoginForm;
 import com.kims.community.users.repository.UsersRepository;
+import java.time.Duration;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,11 +21,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class UsersService {
 
     private final UsersRepository usersRepository;
+    private final JwtAuthenticationProvider jwtAuthenticationProvider;
 
 
     /**
      * 유저 저장
-     * @param usersForm userForm
+     * @param usersForm 회원가입 폼
      * @return UsersDto
      */
     @Transactional
@@ -29,12 +34,12 @@ public class UsersService {
 
         // 이메일 체크
         if (usersRepository.existsByEmail(usersForm.getEmail())) {
-            throw new CustomException(ALREADY_REGISTER_USER);
+            throw new BusinessException(ALREADY_REGISTER_USER);
         }
 
         // 닉네임 체크
         if (usersRepository.existsByNickName(usersForm.getNickName())) {
-            throw new CustomException(DUPLICATE_NICKNAME);
+            throw new BusinessException(DUPLICATE_NICKNAME);
         }
 
         Users users = Users.of(usersForm);
@@ -48,4 +53,15 @@ public class UsersService {
             .build();
     }
 
+    /**
+     * 로그인
+     * @param usersLoginForm 로그인 폼
+     * @return String
+     */
+    public String loginUsers(UsersLoginForm usersLoginForm) {
+        Users users = usersRepository.findByEmail(usersLoginForm.getEmail())
+            .orElseThrow(() -> new BusinessException(NOT_FOUND_USER));
+
+        return jwtAuthenticationProvider.generateToken(users, Duration.ofMinutes(30));
+    }
 }

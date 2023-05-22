@@ -11,7 +11,6 @@ import lombok.Setter;
 public class UsersResponse {
 
     private String message;
-
     private UsersDto usersDto;
 
 
