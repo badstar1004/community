@@ -2,7 +2,6 @@ package com.kims.community.users.model.form;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -27,7 +26,6 @@ public class UsersLoginForm {
      * 비밀번호
      */
     @NotBlank(message = "비밀번호를 입력해주세요.")
-    @Size(min = 4, max = 20, message = "비밀번호는 4자이상 20자이하입니다.")
     private String password;
 
 }

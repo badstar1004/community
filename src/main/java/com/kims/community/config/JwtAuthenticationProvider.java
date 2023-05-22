@@ -22,24 +22,23 @@ public class JwtAuthenticationProvider {
     @Value("${jwt.secretkey}")
     private String SECRETKEY;
 
-    public String generateToken(Users users, Duration expirationPeriod) {
-        Date now = new Date();
-        return createToken(new Date(now.getTime() + expiredAt.toMillis()), users);
+    public String generateToken(Users users) {
+        return createToken(users);
     }
 
     /**
      * jwt 토큰 생성
-     * @param expiry 유효기간
-     * @param users  Users
-     * @return String
+     * @param users Users
+     * @return String (토큰)
      */
-    private String createToken(Date expiry, Users users) {
+    private String createToken(Users users) {
         SecretKey key = new SecretKeySpec(Base64.getDecoder().decode(SECRETKEY), "HmacSHA256");
         Date now = new Date();
+        Duration expirationPeriod = Duration.ofMinutes(30);
 
         return Jwts.builder()
             .setIssuedAt(now)
-            .setExpiration(expiry)
+            .setExpiration(new Date(now.getTime() + expirationPeriod.toMillis()))
             .claim("id", users.getId())
             .setSubject(users.getEmail())
             .signWith(SignatureAlgorithm.HS256, key)
