@@ -22,7 +22,7 @@ public class JwtAuthenticationProvider {
     @Value("${jwt.secretkey}")
     private String SECRETKEY;
 
-    public String generateToken(Users users, Duration expiredAt) {
+    public String generateToken(Users users, Duration expirationPeriod) {
         Date now = new Date();
         return createToken(new Date(now.getTime() + expiredAt.toMillis()), users);
     }
