@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 
 @Configuration
 @RequiredArgsConstructor
@@ -19,6 +19,7 @@ public class SecurityConfig {
 
     /**
      * 비밀번호 암호화 Bean
+     *
      * @return BCryptPasswordEncoder
      */
     @Bean
@@ -28,21 +29,17 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        return http
-
+        http
             // 접속 모두 허용
             .authorizeRequests()
             .anyRequest().permitAll()
             .and()
-
-            // http 스크래치 테스트 시 외부 호출
             .csrf().disable()   // CSRF 공격을 방지하기 위해서는 활성화하는게 좋음
             .headers().frameOptions().sameOrigin()
             .and()
+            .addFilterAfter(new JwtAuthenticationFilter(jwtAuthenticationProvider, usersRepository)
+            , FilterSecurityInterceptor.class);
 
-            .addFilterBefore(
-                new JwtAuthenticationFilter(jwtAuthenticationProvider, usersRepository),
-                UsernamePasswordAuthenticationFilter.class)
-            .build();
+        return http.build();
     }
 }

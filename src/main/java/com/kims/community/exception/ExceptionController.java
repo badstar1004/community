@@ -19,9 +19,8 @@ public class ExceptionController {
      * @return ResponseEntity<Object>
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    protected ResponseEntity<ExceptionResponse> handleMethodArgumentNotValid(
+    public ResponseEntity<ExceptionResponse> handleMethodArgumentNotValid(
         MethodArgumentNotValidException ex) {
-
         return ResponseEntity.badRequest().body(
             new ExceptionResponse(
                 Objects.requireNonNull(ex.getBindingResult().getFieldError()).getCode(),

@@ -1,0 +1,12 @@
+### 게시판 조회
+GET http://localhost:8080/board/list
+
+### 게시글 작성
+POST http://localhost:8080/board/1/add-article
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2ODQ4NTgxMjUsImV4cCI6MTY4NDg1OTkyNSwiaWQiOjEsInN1YiI6ImFmYUBiYmIuY29tIn0.Fkm0Tj4zxyY5sS8oXK8QDiLJ9of_TUKKRLmcoS2cqGw
+
+{
+  "title": "ㅁㅁㅁ",
+  "contents": "ㄹㄹㄹㄹ"
+}
