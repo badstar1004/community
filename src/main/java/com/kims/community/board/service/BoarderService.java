@@ -14,6 +14,11 @@ public class BoarderService {
 
     private final BoarderRepository boarderRepository;
 
+    /**
+     * 게시글 조회
+     * @param pageable Pageable
+     * @return Page<BoardListView>
+     */
     public Page<BoardListView> getAllBoardArticle(Pageable pageable) {
         Page<BoardArticle> boardArticlePage = boarderRepository.findAll(pageable);
         return boardArticlePage.map(BoardListView::of);

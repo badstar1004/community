@@ -22,7 +22,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String requestURI = request.getRequestURI();
 
-        if (requestURI.startsWith("/h2-console/") || requestURI.startsWith("/users/signup")
+        if (requestURI.startsWith("/h2-console") || requestURI.startsWith("/users/signup")
             || requestURI.startsWith("/users/signin") || requestURI.startsWith("/board/list")) {
             filterChain.doFilter(request, response);
             return;

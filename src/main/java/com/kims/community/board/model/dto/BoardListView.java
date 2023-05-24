@@ -1,6 +1,7 @@
 package com.kims.community.board.model.dto;
 
 import com.kims.community.board.entity.BoardArticle;
+import java.time.LocalDate;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,14 +17,19 @@ public class BoardListView {
     private Long boardArticleId;
 
     /**
+     * 제목
+     */
+    private String title;
+
+    /**
      * 닉네임
      */
     private String userNickName;
 
     /**
-     * 제목
+     * 작성일
      */
-    private String title;
+    private LocalDate registDate;
 
     /**
      * 좋아요 수
@@ -39,8 +45,9 @@ public class BoardListView {
     public static BoardListView of(BoardArticle boardArticle) {
         return BoardListView.builder()
             .boardArticleId(boardArticle.getId())
-            .userNickName(boardArticle.getUserNickName())
             .title(boardArticle.getTitle())
+            .userNickName(boardArticle.getUserNickName())
+            .registDate(boardArticle.getRegistAt().toLocalDate())
             .likeCount(boardArticle.getLikeCount())
             .build();
     }
