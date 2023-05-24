@@ -1,12 +1,17 @@
 package com.kims.community.users.entity;
 
 import com.kims.community.baseEntity.BaseEntity;
+import com.kims.community.board.entity.BoardArticle;
 import com.kims.community.users.model.form.UsersForm;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,7 +33,7 @@ public class Users extends BaseEntity {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "userid")
+    @Column(name = "userId")
     private Long id;
 
     /**
@@ -54,6 +59,21 @@ public class Users extends BaseEntity {
      */
     @Column(nullable = false)
     private String password;
+
+
+    /**
+     * BoardArticle 과 조인
+     */
+    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
+    private List<BoardArticle> boardArticles;
+
+    public void addBoardArticle(BoardArticle article) {
+        if (boardArticles == null) {
+            boardArticles = new ArrayList<>();
+        }
+        boardArticles.add(article);
+        article.setUserNickName(nickName);
+    }
 
 
     /**
