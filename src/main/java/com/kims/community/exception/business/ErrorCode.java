@@ -17,7 +17,12 @@ public enum ErrorCode {
 
     // 로그인
     NOT_FOUND_USER(HttpStatus.BAD_REQUEST, "가입된 정보가 없습니다."),
-    WRONG_PASSWORD(HttpStatus.BAD_REQUEST, "비밀번호가 틀립니다.");
+    WRONG_PASSWORD(HttpStatus.BAD_REQUEST, "비밀번호가 틀립니다."),
+
+    // 게시판
+    NOT_FOUND_BOARD_ARTICLE(HttpStatus.BAD_REQUEST, "해당 게시글이 없습니다."),
+    TITLE_ALREADY_EXISTS(HttpStatus.BAD_REQUEST, "같은 제목의 글이 존재합니다."),
+    ARTICLE_SAME_TITLE(HttpStatus.BAD_REQUEST, "같은 제목의 글입니다.");
 
     private final HttpStatus httpStatus;
     private final String detail;

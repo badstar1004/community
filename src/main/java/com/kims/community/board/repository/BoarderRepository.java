@@ -7,5 +7,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BoarderRepository extends JpaRepository<BoardArticle, Long> {
 
+    /**
+     * 조회 (boardarticleId 기준)
+     * @param id must not be {@literal null}.
+     * @return boolean
+     */
+    boolean existsById(Long id);
 
 }

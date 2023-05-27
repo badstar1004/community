@@ -39,7 +39,7 @@ public class UsersResponse {
          * @param users Users
          * @return UsersDto
          */
-        public static UsersDto of(Users users) {
+        public static UsersDto from(Users users) {
             return UsersDto.builder()
                 .email(users.getEmail())
                 .name(users.getName())

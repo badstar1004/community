@@ -3,7 +3,6 @@ package com.kims.community.users.entity;
 import com.kims.community.baseEntity.BaseEntity;
 import com.kims.community.board.entity.BoardArticle;
 import com.kims.community.users.model.form.UsersForm;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -64,16 +63,8 @@ public class Users extends BaseEntity {
     /**
      * BoardArticle 과 조인
      */
-    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BoardArticle> boardArticles;
-
-    public void addBoardArticle(BoardArticle article) {
-        if (boardArticles == null) {
-            boardArticles = new ArrayList<>();
-        }
-        boardArticles.add(article);
-        article.setUserNickName(nickName);
-    }
 
 
     /**
@@ -81,12 +72,12 @@ public class Users extends BaseEntity {
      * @param usersForm usersForm
      * @return Users
      */
-    public static Users of(UsersForm usersForm) {
+    public static Users from(UsersForm usersForm, String password) {
         return Users.builder()
             .email(usersForm.getEmail())
             .name(usersForm.getName())
             .nickName(usersForm.getNickName())
-            .password(usersForm.getPassword())
+            .password(password)
             .build();
     }
 }
