@@ -14,4 +14,11 @@ public interface BoarderRepository extends JpaRepository<BoardArticle, Long> {
      */
     boolean existsById(Long id);
 
+    /**
+     * 조회 (title 기준)
+     * @param title 제목
+     * @return boolean
+     */
+    boolean existsByTitle(String title);
+
 }

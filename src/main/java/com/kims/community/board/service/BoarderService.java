@@ -56,6 +56,11 @@ public class BoarderService {
             throw new BusinessException(TITLE_ALREADY_EXISTS);
         }
 
+        // DB 같은 제목 있는지 확인
+        if(!boarderRepository.existsByTitle(boardArticleForm.getTitle())){
+            throw new BusinessException(TITLE_ALREADY_EXISTS);
+        }
+
         // 저장
         BoardArticle boardArticle = boarderRepository.save(BoardArticle.of(user, boardArticleForm));
         user.getBoardArticles().add(boardArticle);
