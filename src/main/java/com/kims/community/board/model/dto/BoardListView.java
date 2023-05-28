@@ -1,7 +1,7 @@
 package com.kims.community.board.model.dto;
 
 import com.kims.community.board.entity.BoardArticle;
-import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,7 +29,12 @@ public class BoardListView {
     /**
      * 작성일
      */
-    private LocalDate registDate;
+    private String registDate;
+
+    /**
+     * 수정일
+     */
+    private String modifyDate;
 
     /**
      * 좋아요 수
@@ -42,12 +47,15 @@ public class BoardListView {
      * @param boardArticle 게시글
      * @return BoardArticleView
      */
-    public static BoardListView of(BoardArticle boardArticle) {
+    public static BoardListView from(BoardArticle boardArticle) {
         return BoardListView.builder()
             .boardArticleId(boardArticle.getId())
             .title(boardArticle.getTitle())
             .userNickName(boardArticle.getUserNickName())
-            .registDate(boardArticle.getRegistAt().toLocalDate())
+            .registDate(boardArticle.getRegistAt().format(
+                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+            .modifyDate(boardArticle.getModifyAt()
+                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
             .likeCount(boardArticle.getLikeCount())
             .build();
     }

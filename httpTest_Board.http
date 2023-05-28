@@ -2,11 +2,31 @@
 GET http://localhost:8080/board/list
 
 ### 게시글 작성
-POST http://localhost:8080/board/1/add-article
+POST http://localhost:8080/board/1/add-boardarticle
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2ODQ4NTgxMjUsImV4cCI6MTY4NDg1OTkyNSwiaWQiOjEsInN1YiI6ImFmYUBiYmIuY29tIn0.Fkm0Tj4zxyY5sS8oXK8QDiLJ9of_TUKKRLmcoS2cqGw
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2ODUxNjk4NTgsImV4cCI6MTY4NTE3MTY1OCwiaWQiOjEsInN1YiI6ImFmYUBiYmIuY29tIn0.OD_tWW-yAsephXfacQLZyGLtDHFEU8m6Lxxww5V9ZQM
 
 {
-  "title": "ㅁㅁㅁ",
-  "contents": "ㄹㄹㄹㄹ"
+  "title": "날씨가",
+  "contents": "날씨가 밤에는 춥네요"
 }
+
+### 게시글 상세 조회
+GET http://localhost:8080/board/list/1/detailview
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2ODUxNjk4NTgsImV4cCI6MTY4NTE3MTY1OCwiaWQiOjEsInN1YiI6ImFmYUBiYmIuY29tIn0.OD_tWW-yAsephXfacQLZyGLtDHFEU8m6Lxxww5V9ZQM
+
+### 게시글 수정
+PUT http://localhost:8080/board/list/1/modify-boardarticle
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2ODUxNjk4NTgsImV4cCI6MTY4NTE3MTY1OCwiaWQiOjEsInN1YiI6ImFmYUBiYmIuY29tIn0.OD_tWW-yAsephXfacQLZyGLtDHFEU8m6Lxxww5V9ZQM
+
+{
+  "title": "aaa",
+  "contents": "기분이 좋지않다~"
+}
+
+### 게시글 삭제
+GET http://localhost:8080/board/list/1/detailview
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2ODUxNjk4NTgsImV4cCI6MTY4NTE3MTY1OCwiaWQiOjEsInN1YiI6ImFmYUBiYmIuY29tIn0.OD_tWW-yAsephXfacQLZyGLtDHFEU8m6Lxxww5V9ZQM

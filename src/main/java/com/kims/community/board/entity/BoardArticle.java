@@ -1,6 +1,7 @@
 package com.kims.community.board.entity;
 
 import com.kims.community.baseEntity.BaseEntity;
+import com.kims.community.board.model.form.BoardArticleForm;
 import com.kims.community.users.entity.Users;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.PostLoad;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -39,7 +39,7 @@ public class BoardArticle extends BaseEntity {
      * Users 와 조인
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "userId", nullable = false)
     private Users users;
 
     /**
@@ -47,13 +47,6 @@ public class BoardArticle extends BaseEntity {
      */
     @Column(length = 50)
     private String userNickName;
-
-    @PostLoad
-    private void loadUserNickName() {
-        if (users != null) {
-            userNickName = users.getNickName();
-        }
-    }
 
     /**
      * 제목
@@ -73,4 +66,19 @@ public class BoardArticle extends BaseEntity {
     private int likeCount;
 
 
+    /**
+     * BoardArticleForm -> BoardArticle
+     * @param users            Users
+     * @param boardArticleForm BoardArticleForm
+     * @return BoardArticle
+     */
+    public static BoardArticle of(Users users, BoardArticleForm boardArticleForm) {
+        return BoardArticle.builder()
+            .users(users)
+            .userNickName(users.getNickName())
+            .title(boardArticleForm.getTitle())
+            .contents(boardArticleForm.getContents())
+            .likeCount(0)
+            .build();
+    }
 }

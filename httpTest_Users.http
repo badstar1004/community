@@ -1,4 +1,4 @@
-### 회원가입 테스트
+### 회원가입
 POST http://localhost:8080/users/signup
 Content-Type: application/json
 

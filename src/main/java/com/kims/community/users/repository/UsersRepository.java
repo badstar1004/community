@@ -9,6 +9,13 @@ import org.springframework.stereotype.Repository;
 public interface UsersRepository extends JpaRepository<Users, Long> {
 
     /**
+     * 조회 (userId 기준)
+     * @param id must not be {@literal null}.
+     * @return boolean
+     */
+    boolean existsById(Long id);
+
+    /**
      * 조회 (이메일 기준)
      * @param email email
      * @return Optional<Users>

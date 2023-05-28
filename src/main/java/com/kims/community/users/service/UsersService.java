@@ -44,15 +44,14 @@ public class UsersService {
         }
 
         // 비밀번호 암호화
-        usersForm.setPassword(passwordEncoder.encode(usersForm.getPassword()));
-        Users user = Users.of(usersForm);
+        Users user = Users.from(usersForm, passwordEncoder.encode(usersForm.getPassword()));
 
         // 저장
         usersRepository.save(user);
 
         return UsersResponse.builder()
             .message("회원가입이 완료되었습니다.")
-            .usersDto(UsersResponse.UsersDto.of(user))
+            .usersDto(UsersResponse.UsersDto.from(user))
             .build();
     }
 
