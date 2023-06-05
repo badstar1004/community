@@ -1,0 +1,22 @@
+### 해당 게시판 댓글 저장
+POST http://localhost:8080/board/1/16/article-comments?page=0&size=10
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2ODU5MzM2NzAsImV4cCI6MTY4NTkzNTQ3MCwiaWQiOjEsInN1YiI6ImFmYUBiYmIuY29tIn0._d9JD6zTGI9CPWNmyWw6wIpdO1p-sBc_WCnN--aAKCY
+
+{
+  "contents": "댓글오더바이다다"
+}
+
+### 해당 게시판 댓글 수정
+PUT http://localhost:8080/board/1/16/article-comments/20?page=0&size=10
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2ODU5MzM2NzAsImV4cCI6MTY4NTkzNTQ3MCwiaWQiOjEsInN1YiI6ImFmYUBiYmIuY29tIn0._d9JD6zTGI9CPWNmyWw6wIpdO1p-sBc_WCnN--aAKCY
+
+{
+  "contents": "오더바이좀"
+}
+
+### 해당 게시판 댓글 삭제
+DELETE http://localhost:8080/board/1/16/article-comments/22
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2ODU5MzM2NzAsImV4cCI6MTY4NTkzNTQ3MCwiaWQiOjEsInN1YiI6ImFmYUBiYmIuY29tIn0._d9JD6zTGI9CPWNmyWw6wIpdO1p-sBc_WCnN--aAKCY

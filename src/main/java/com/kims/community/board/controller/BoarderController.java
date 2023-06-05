@@ -6,9 +6,9 @@ import com.kims.community.board.model.dto.BoardArticleResponse;
 import com.kims.community.board.model.dto.BoardListView;
 import com.kims.community.board.model.form.BoardArticleForm;
 import com.kims.community.board.service.BoarderService;
+import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -30,23 +31,29 @@ public class BoarderController {
 
     /**
      * 게시판 리스트 조회
+     *
      * @return List<BoardListView>
      */
     @GetMapping("/list")
-    public ResponseEntity<Page<BoardListView>> getBoardArticle(Pageable pageable) {
+    public ResponseEntity<List<BoardListView>> getBoardArticle(Pageable pageable) {
         return ResponseEntity.ok(boarderService.getAllBoardArticle(pageable));
     }
 
     /**
      * 게시글 등록
+     *
      * @param userid           유저 아이디
      * @param boardArticleForm BoardArticleForm
      * @return BoardArticleResponse
      */
-    @PostMapping("/{userid}/add-boardarticle")
+    @PostMapping("/{userid}/boardarticle")
     public ResponseEntity<BoardArticleResponse> addBoardArticle(@PathVariable Long userid,
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "10") int size,
         @RequestBody @Valid BoardArticleForm boardArticleForm) {
-        return ResponseEntity.ok(boarderService.addBoardArticle(userid, boardArticleForm));
+
+        return ResponseEntity.ok(
+            boarderService.addBoardArticle(userid, page, size, boardArticleForm));
     }
 
     /**
@@ -57,8 +64,11 @@ public class BoarderController {
      */
     @GetMapping("/{userid}/list/{boardarticleid}/detailview")
     public ResponseEntity<ArticleDto> articleDetailView(@PathVariable Long userid,
-        @PathVariable Long boardarticleid) {
-        return ResponseEntity.ok(boarderService.articleDetailView(userid, boardarticleid));
+        @PathVariable Long boardarticleid, @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "10") int size) {
+
+        return ResponseEntity.ok(
+            boarderService.articleDetailView(userid, boardarticleid, page, size));
     }
 
     /**
@@ -67,11 +77,14 @@ public class BoarderController {
      * @param boardArticleForm BoardArticleForm
      * @return BoardArticleResponse
      */
-    @PutMapping("/{userid}/{boardarticleid}/modify-boardarticle")
+    @PutMapping("/{userid}/{boardarticleid}/boardarticle")
     public ResponseEntity<BoardArticleResponse> articleModify(@PathVariable Long userid,
-        @PathVariable Long boardarticleid, @RequestBody @Valid BoardArticleForm boardArticleForm) {
+        @PathVariable Long boardarticleid, @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "10") int size,
+        @RequestBody @Valid BoardArticleForm boardArticleForm) {
+
         return ResponseEntity.ok(
-            boarderService.articleModify(userid, boardarticleid, boardArticleForm));
+            boarderService.articleModify(userid, boardarticleid, page, size, boardArticleForm));
     }
 
     /**
@@ -80,7 +93,7 @@ public class BoarderController {
      * @param boardarticleid 게시글 아이디
      * @return String
      */
-    @DeleteMapping("/{userid}/{boardarticleid}/delete-boardarticle")
+    @DeleteMapping("/{userid}/{boardarticleid}/boardarticle")
     public ResponseEntity<String> articleDelete(@PathVariable Long userid,
         @PathVariable Long boardarticleid) {
         return ResponseEntity.ok(boarderService.articleDelete(userid, boardarticleid));

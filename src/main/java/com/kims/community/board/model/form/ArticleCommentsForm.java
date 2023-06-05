@@ -12,13 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class BoardArticleForm {
-
-    /**
-     * 제목
-     */
-    @NotBlank(message = "제목을 입력해주세요.")
-    private String title;
+public class ArticleCommentsForm {
 
     /**
      * 내용

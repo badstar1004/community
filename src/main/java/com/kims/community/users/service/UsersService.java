@@ -44,7 +44,7 @@ public class UsersService {
         }
 
         // 비밀번호 암호화
-        Users user = Users.from(usersForm, passwordEncoder.encode(usersForm.getPassword()));
+        Users user = Users.of(usersForm, passwordEncoder.encode(usersForm.getPassword()));
 
         // 저장
         usersRepository.save(user);

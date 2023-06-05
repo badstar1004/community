@@ -1,6 +1,7 @@
 package com.kims.community.users.entity;
 
 import com.kims.community.baseEntity.BaseEntity;
+import com.kims.community.board.entity.ArticleComments;
 import com.kims.community.board.entity.BoardArticle;
 import com.kims.community.users.model.form.UsersForm;
 import java.util.List;
@@ -10,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -19,7 +21,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table
+@Table(name = "Users")
 @Getter
 @Setter
 @Builder
@@ -32,7 +34,7 @@ public class Users extends BaseEntity {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "userId")
+    @Column(name = "user_id")
     private Long id;
 
     /**
@@ -60,11 +62,13 @@ public class Users extends BaseEntity {
     private String password;
 
 
-    /**
-     * BoardArticle 과 조인
-     */
-    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<BoardArticle> boardArticles;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private List<BoardArticle> boardArticleList;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private List<ArticleComments> articleCommentsList;
 
 
     /**
@@ -72,7 +76,7 @@ public class Users extends BaseEntity {
      * @param usersForm usersForm
      * @return Users
      */
-    public static Users from(UsersForm usersForm, String password) {
+    public static Users of(UsersForm usersForm, String password) {
         return Users.builder()
             .email(usersForm.getEmail())
             .name(usersForm.getName())
