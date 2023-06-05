@@ -27,7 +27,10 @@ public enum ErrorCode {
 
     // 댓글
     NOT_FOUND_ARTICLE_COMMENTS(HttpStatus.BAD_REQUEST, "해당 댓글이 없습니다."),
-    AUTHOR_DIFFERENT_COMMENT(HttpStatus.BAD_REQUEST, "해당 댓글의 작성자가 아닙니다.");
+    AUTHOR_DIFFERENT_COMMENT(HttpStatus.BAD_REQUEST, "해당 댓글의 작성자가 아닙니다."),
+
+    // 댓글
+    ALREADY_ARTICLE_LIKES_CANCEL(HttpStatus.BAD_REQUEST, "이미 좋아요 취소한 유저입니다.");
 
     private final HttpStatus httpStatus;
     private final String detail;

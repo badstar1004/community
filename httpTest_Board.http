@@ -4,7 +4,7 @@ GET http://localhost:8080/board/list
 ### 게시글 작성
 POST http://localhost:8080/board/1/boardarticle?page=0&size=10
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2ODU5MzM2NzAsImV4cCI6MTY4NTkzNTQ3MCwiaWQiOjEsInN1YiI6ImFmYUBiYmIuY29tIn0._d9JD6zTGI9CPWNmyWw6wIpdO1p-sBc_WCnN--aAKCY
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2ODU5NjgwODcsImV4cCI6MTY4NTk2OTg4NywiaWQiOjEsInN1YiI6ImFmYUBiYmIuY29tIn0.5Sr-HSob4Bbhz0BxTt5S03M0KXbP82dHuKm7eWH9vrM
 
 {
   "title": "안녕하세요",
