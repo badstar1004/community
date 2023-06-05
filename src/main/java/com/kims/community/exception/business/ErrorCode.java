@@ -22,7 +22,12 @@ public enum ErrorCode {
     // 게시판
     NOT_FOUND_BOARD_ARTICLE(HttpStatus.BAD_REQUEST, "해당 게시글이 없습니다."),
     TITLE_ALREADY_EXISTS(HttpStatus.BAD_REQUEST, "같은 제목의 글이 존재합니다."),
-    ARTICLE_SAME_TITLE(HttpStatus.BAD_REQUEST, "같은 제목의 글입니다.");
+    ARTICLE_SAME_TITLE(HttpStatus.BAD_REQUEST, "같은 제목의 글입니다."),
+    NOT_AUTHOR_ARTICLE(HttpStatus.BAD_REQUEST, "해당 글의 작성자가 아닙니다."),
+
+    // 댓글
+    NOT_FOUND_ARTICLE_COMMENTS(HttpStatus.BAD_REQUEST, "해당 댓글이 없습니다."),
+    AUTHOR_DIFFERENT_COMMENT(HttpStatus.BAD_REQUEST, "해당 댓글의 작성자가 아닙니다.");
 
     private final HttpStatus httpStatus;
     private final String detail;

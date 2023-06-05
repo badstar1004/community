@@ -2,6 +2,7 @@ package com.kims.community.board.model.dto;
 
 import com.kims.community.board.entity.BoardArticle;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -55,13 +56,18 @@ public class BoardArticleResponse {
          */
         private int likeCount;
 
+        /**
+         * 댓글
+         */
+        private List<ArticleCommentDto> articleComments;
+
 
         /**
          * BoardArticle -> ArticleDto
          * @param boardArticle 게시글
          * @return ArticleDto
          */
-        public static ArticleDto from(BoardArticle boardArticle) {
+        public static ArticleDto of(BoardArticle boardArticle, List<ArticleCommentDto> commentsList) {
             return ArticleDto.builder()
                 .boardArticleId(boardArticle.getId())
                 .title(boardArticle.getTitle())
@@ -72,6 +78,7 @@ public class BoardArticleResponse {
                 .modifyDate(boardArticle.getModifyAt()
                     .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                 .likeCount(boardArticle.getLikeCount())
+                .articleComments(commentsList)
                 .build();
         }
     }
