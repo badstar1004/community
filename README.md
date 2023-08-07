@@ -1,12 +1,10 @@
 # 📝community 게시판 만들기
 사용자간 간단히 소통할 수 있는 게시판 서비스
 
-# 🛠️기술 & 툴 (진행하면서 추가할 예정)
-- Java jdk 11
-- MySql
-- Spring Boot 2.7.11, gradle
-- Spring Web, JAP, Lombok, JWT, h2 Database, MySql
-- IntelliJ Ultimate
+# 🛠️기술 & 툴
+- Java
+- Spring Boot (gradle)
+- Spring Web, JPA, Lombok, JWT, h2 Database
 
 # 🗓️프로젝트 기간
 2023-05-02 ~ 2023-06-05
